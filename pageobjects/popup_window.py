@@ -1,0 +1,33 @@
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.select import Select
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
+
+
+class PopUpWindow:
+
+    def __init__(self, driver):
+        self.driver = driver
+
+    popup_window_locator = (By.CLASS_NAME, "featherlight-content")
+    select_locator = (By.XPATH, "//select[@name='options[Size]']")
+    quantity_locator = (By.XPATH, "//input[@name='quantity']")
+    add_to_cart_locator = (By.XPATH, "//button[@name='add_cart_product']")
+    close_locator = (By.XPATH, "//button[@aria-label='Close']")
+
+    def select_size(self, size):
+        select = Select(WebDriverWait(self.driver, 3).until(EC.presence_of_element_located(self.select_locator)))
+        select.select_by_value(size)
+
+    def input_quantity(self, quantity):
+        input_quantity = WebDriverWait(self.driver, 3).until(EC.element_to_be_clickable(self.quantity_locator))
+        input_quantity.clear()
+        input_quantity.send_keys(quantity)
+
+    def add_to_cart(self):
+        add_to_cart_button = WebDriverWait(self.driver, 3).until(EC.element_to_be_clickable(self.add_to_cart_locator))
+        add_to_cart_button.click()
+
+    def close(self):
+        close_button = WebDriverWait(self.driver, 3).until(EC.element_to_be_clickable(self.close_locator))
+        close_button.click()
