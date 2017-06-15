@@ -6,7 +6,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
-class Base(object):
+class Base:
 
     driver = webdriver.Chrome()
 
@@ -22,9 +22,9 @@ class Base(object):
     def wait_not_visible(self, locator, time_sec):
         try:
             for i in range(0, time_sec + 1):
-                if WebDriverWait(self.driver, time_sec).until(EC.visibility_of_element_located(locator)):
-                    time.sleep(1)
-                elif i == 5:
+                if WebDriverWait(self.driver, 0.5).until(EC.visibility_of_element_located(locator)):
+                    time.sleep(0.5)
+                elif i == time_sec:
                     return False
         except TimeoutException:
             return True
