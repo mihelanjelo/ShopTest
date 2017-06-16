@@ -2,6 +2,7 @@ import time
 
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -15,20 +16,14 @@ class Helper:
         self.driver.get(url)
 
     def close(self):
+        WebDriverWait(self.driver, 10).until(lambda s: s.execute_script("return jQuery.active == 0"))
         self.driver.quit()
 
     def wait_to_be_visible(self, locator, time_sec):
         return WebDriverWait(self.driver, time_sec).until(EC.visibility_of_element_located(locator))
 
     def wait_not_visible(self, locator, time_sec):
-        try:
-            for i in range(0, time_sec + 1):
-                if WebDriverWait(self.driver, 0.5).until(EC.visibility_of_element_located(locator)):
-                    time.sleep(0.5)
-                elif i == time_sec:
-                    return False
-        except TimeoutException:
-            return True
+        return WebDriverWait(self.driver, time_sec).until(EC.invisibility_of_element_located(locator))
 
     def wait_page(self, page, waiting_time):
         for i in range(0, waiting_time + 1):

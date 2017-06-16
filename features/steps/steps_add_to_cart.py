@@ -1,3 +1,4 @@
+import time
 from behave import *
 
 from pageobjects.cart_page import CartPage
