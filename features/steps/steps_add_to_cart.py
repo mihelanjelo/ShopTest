@@ -56,7 +56,7 @@ def step_impl(context):
     context.popup_window.close()
 
 
-@then('Pop-up window closed')
+@then('Pop-up window is closed')
 def step_impl(context):
     context.helper.wait_not_visible(context.popup_window.popup_window_locator, 3)
 
@@ -70,7 +70,3 @@ def step_impl(context):
 def step_impl(context, item_name, size, quantity):
     context.helper.wait_page(context.cart_page, 5)
     assert context.cart_page.check_item_in_cart(item_name, size, quantity)
-
-
-def after_scenario(context):
-    context.helper.close()

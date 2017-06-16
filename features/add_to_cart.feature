@@ -9,11 +9,11 @@ Feature: Shopping cart basic test
         And Set quantity "<quantity>"
         And Click add to cart button
         And Close pop-up window
-      Then Pop-up window closed
+      Then Pop-up window is closed
       When Open shopping cart
       Then Cart page is opened and chosen "<item>" in list with chosen "<size>" and "<quantity>"
+
 
       Examples:
        | browser    | item         | size  | quantity |
        | Chrome     | Yellow Duck  | Small | 2        |
-
