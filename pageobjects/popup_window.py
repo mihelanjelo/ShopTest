@@ -15,9 +15,13 @@ class PopUpWindow:
     add_to_cart_locator = (By.XPATH, "//button[@name='add_cart_product']")
     close_locator = (By.XPATH, "//button[@aria-label='Close']")
 
-    def select_size(self, size):
+    def select_size_by_value(self, size):
         select = Select(WebDriverWait(self.driver, 3).until(EC.presence_of_element_located(self.select_locator)))
         select.select_by_value(size)
+
+    def select_size_by_order(self, size):
+        select = Select(WebDriverWait(self.driver, 3).until(EC.presence_of_element_located(self.select_locator)))
+        select.select_by_index(size)
 
     def input_quantity(self, quantity):
         input_quantity = WebDriverWait(self.driver, 3).until(EC.element_to_be_clickable(self.quantity_locator))

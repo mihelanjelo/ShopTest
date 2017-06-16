@@ -8,7 +8,8 @@ from selenium.webdriver.support import expected_conditions as EC
 
 class Base:
 
-    driver = webdriver.Chrome()
+    def __init__(self, browser_name):
+        self.driver = Base.choose_browser(browser_name)
 
     def visit(self, url):
         self.driver.get(url)
@@ -38,3 +39,11 @@ class Base:
             else:
                 time.sleep(1)
 
+    @staticmethod
+    def choose_browser(browser):
+        if browser == "Chrome":
+            return webdriver.Chrome()
+        elif browser == "Firefox":
+            return webdriver.Firefox()
+        elif browser == "IE":
+            return webdriver.Ie()
