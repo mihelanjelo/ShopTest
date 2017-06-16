@@ -6,10 +6,10 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
-class Helpers:
+class Helper:
 
     def __init__(self, browser_name):
-        self.driver = Helpers.choose_browser(browser_name)
+        self.driver = Helper.choose_browser(browser_name)
 
     def visit(self, url):
         self.driver.get(url)
