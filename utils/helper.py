@@ -8,7 +8,6 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class Helper:
-
     def __init__(self, browser_name):
         self.driver = Helper.choose_browser(browser_name)
 

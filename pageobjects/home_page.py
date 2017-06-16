@@ -10,7 +10,7 @@ class HomePage:
 
     page_title = "Demo Store | Online Store"
 
-    go_to_cart_locator = (By.XPATH, "//div[@class='content']")
+    go_to_cart_locator = (By.XPATH, "//div[@class='title' and contains(text(), 'Shopping Cart')]")
 
     def choose_item(self, item_name):
         item_locator = (By.XPATH, "//a[@title='" + item_name + "']")
