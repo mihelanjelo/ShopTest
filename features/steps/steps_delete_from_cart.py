@@ -1,9 +1,7 @@
-from behave import given, when, then
-from selenium.common.exceptions import WebDriverException
 from features.steps.steps_add_to_cart import *
 
 
-@given('Executed steps of basic scenario with params: "{browser}", "{item_name}", "{size}", "{quantity}"')
+@given('Executed steps of adding item to cart scenario with params: "{browser}", "{item_name}", "{size}", "{quantity}"')
 def step_impl(context, browser, item_name, size, quantity):
     context.execute_steps("""
       Given Open "{browser}"
@@ -20,19 +18,11 @@ def step_impl(context, browser, item_name, size, quantity):
     """.format(browser=browser, item=item_name, size=size, quantity=quantity))
 
 
-@when('Click delete item from list button')
-def step_impl(context):
-    context.cart_page.delete_item()
+@when('Click delete "{item_name}" from list')
+def step_impl(context, item_name):
+    context.cart_page.delete_item(item_name)
 
 
 @then('Item "{item_name}", "{size}", "{quantity}" disappears')
 def step_impl(context, item_name, size, quantity):
-    check = False
-    for i in range(0, 11):
-        try:
-            context.cart_page.check_item_in_cart(item_name, size, quantity)
-        except WebDriverException:
-            check = True
-            break
-        time.sleep(0.5)
-    assert check
+    assert context.cart_page.check_item_not_in_cart(item_name, size, quantity)
