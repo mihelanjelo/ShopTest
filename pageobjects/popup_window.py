@@ -17,7 +17,7 @@ class PopUpWindow:
 
     def select_size_by_value(self, size):
         select = Select(WebDriverWait(self.driver, 3).until(EC.presence_of_element_located(self.select_locator)))
-        select.select_by_value(size)
+        select.select_by_visible_text(size)
 
     def select_size_by_order(self, size):
         select = Select(WebDriverWait(self.driver, 3).until(EC.presence_of_element_located(self.select_locator)))

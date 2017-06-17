@@ -1,7 +1,7 @@
 from features.steps.steps_add_to_cart import *
 
 
-@given('Executed steps of adding item to cart scenario with params: "{browser}", "{item_name}", "{size}", "{quantity}"')
+@given('Before deleting item execute steps of adding item to cart scenario with params: "{browser}", "{item_name}", "{size}", "{quantity}"')
 def step_impl(context, browser, item_name, size, quantity):
     context.execute_steps("""
       Given Open "{browser}"
