@@ -4,14 +4,14 @@ Feature: Shopping cart basic test
       Given Open "<browser>"
       When Go to "https://demo.litecart.net/en/"
         And Click on "<item>"
-      Then See pop-up window with item definition
+      Then Should open pop-up window with item definition
       When Set size "<size>"
         And Set quantity "<quantity>"
         And Click add to cart button
         And Close pop-up window
-      Then Pop-up window is closed
+      Then Should pop-up window close
       When Open shopping cart
-      Then Cart page is opened and chosen "<item>" in list with chosen "<size>" and "<quantity>"
+      Then Should cart page open and choose "<item>" in list with chosen "<size>" and "<quantity>"
 
 
       Examples:
