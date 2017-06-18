@@ -7,6 +7,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
+# Класс для вспомогательных методов и хранения драйвера
 class Helper:
     def __init__(self, browser_name):
         self.driver = Helper.choose_browser(browser_name)
