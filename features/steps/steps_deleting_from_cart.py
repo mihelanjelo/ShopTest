@@ -29,3 +29,6 @@ def step_impl(context, item_name):
 @then('Should item with params: "{item_name}", "{size}", "{quantity}" disappear')
 def step_impl(context, item_name, size, quantity):
     assert context.cart_page.check_item_not_in_cart(item_name, size, quantity)
+
+def after_scenario(context):
+    context.helper.close()

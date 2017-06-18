@@ -15,7 +15,7 @@ Feature: Creating customer account
         And Set phone "<phone>"
         And Select create account checkbox
       Then Should open password fields
-        And Set desired password "<desired_password>"
+      When Set desired password "<desired_password>"
         And Set confirmed password "<confirmed_password>"
         And Click save changes button
       Then Should appear account created or account exists alert

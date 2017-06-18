@@ -15,7 +15,6 @@ class Helper:
         self.driver.get(url)
 
     def close(self):
-        WebDriverWait(self.driver, 10).until(lambda s: s.execute_script("return jQuery.active == 0"))
         self.driver.quit()
 
     def wait_to_be_visible(self, locator, time_sec):
