@@ -111,6 +111,3 @@ def step_impl(context):
     account_created_alert = context.helper.wait_to_be_visible(context.cart_page.account_created_alert_locator, 5)
     if account_created_alert == False:
         assert account_exists_alert != False
-
-def after_scenario(context):
-    context.helper.close()

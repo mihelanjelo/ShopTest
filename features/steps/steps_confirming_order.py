@@ -58,6 +58,3 @@ def step_impl(context):
 def step_impl(context, message):
     context.helper.wait_page(context.success_order_page, 10)
     assert context.success_order_page.get_success_message() == message
-
-def after_scenario(context):
-    context.helper.close()

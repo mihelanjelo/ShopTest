@@ -45,6 +45,3 @@ def step_impl(context, item_name, quantity, new_quantity, load_time):
             break
         time.sleep(0.5)
     assert context.cart_page.get_item_sum(item_name) == context.item_sum / int(quantity) * int(new_quantity)
-
-def after_scenario(context):
-    context.helper.close()
