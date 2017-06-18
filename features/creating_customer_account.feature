@@ -14,11 +14,12 @@ Feature: Creating customer account
         And Set email "<email>"
         And Set phone "<phone>"
         And Select create account checkbox
+      Then Should open password fields
         And Set desired password "<desired_password>"
         And Set confirmed password "<confirmed_password>"
         And Click save changes button
-      Then Should appear account created alert
+      Then Should appear account created or account exists alert
 
     Examples:
-      | browser | item_name    | size  | quantity | tax_id | company | first_name | last_name | desired_password | confirmed_password | address1 | address2 | postcode | city      | country   | email       | phone  |
-      | Chrome  | Yellow Duck  | Small | 2        | 123    | google  | Leo        | Messi     | barca10          | barca10            | Camp Nou | Madrid   | 55       | Barcelona | Argentina | leo@mail.ru | 123232 |
+      | browser | item_name    | size  | quantity | tax_id    | company | first_name | last_name | desired_password | confirmed_password | address1 | address2 | postcode | city      | country | email       | phone  |
+      | Chrome  | Yellow Duck  | Small | 2        | X12345678 | google  | Leo        | Messi     | barca10          | barca10            | Camp Nou | Madrid   | 08001    | Barcelona | Spain   | leo@mail.ru | 123232 |

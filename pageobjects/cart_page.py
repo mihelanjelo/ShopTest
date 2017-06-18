@@ -15,6 +15,7 @@ class CartPage:
     items_table_xpath = "//table[@class='items table table-striped data-table']"
     delete_item_button_xpath = "/button[@name='remove_cart_item']"
     account_created_alert_locator = (By.XPATH, "//div[@class='alert alert-success']")
+    account_exists_alert_locator = (By.XPATH, "//div[@class='alert alert-info']")
     tax_id_field_locator = (By.XPATH, "//input[@name='tax_id']")
     company_field_locator = (By.XPATH, "//input[@name='company']")
     first_name_field_locator = (By.XPATH, "//input[@name='firstname']")
@@ -30,6 +31,8 @@ class CartPage:
     confirmed_password_field_locator = (By.XPATH, "//input[@name='confirmed_password']")
     create_account_checkbox_locator = (By.XPATH, "//input[@name='create_account']")
     save_changes_button_locator = (By.XPATH, "//button[@name='save_customer_details']")
+    confirm_order_button_locator = (By.XPATH, "//button[@name='confirm_order']")
+    changes_quantity_xpath = "/input[@class='form-control' and @type='number']"
 
     def check_item_in_cart(self, item_name, size, quantity):
         item_name_locator = (By.XPATH, self.items_table_xpath + "//a[contains(text(), '" + item_name + "')]")
@@ -147,3 +150,32 @@ class CartPage:
         account_created_alert = WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located(self.account_created_alert_locator))
         return account_created_alert.is_displayed()
+
+    def is_account_exist_alert_visible(self):
+        account_exists_alert = WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located(self.account_exists_alert_locator))
+        return account_exists_alert.is_displayed()
+
+    def change_item_quantity(self, item_name, new_quantity):
+        change_item_locator = (By.XPATH,
+                               self.items_table_xpath + "//tr[td/div/strong/a[text()='" + item_name + "']]/" + self.changes_quantity_xpath)
+        change_item_input = WebDriverWait(self.driver, 3).until(EC.element_to_be_clickable(change_item_locator))
+        change_item_input.clear()
+        change_item_input.send_keys(new_quantity)
+
+    def get_item_sum(self, item_name):
+        item_sum_locator = (By.XPATH, self.items_table_xpath + "//tr[td/div/strong/a[text()='" + item_name + "']]/td[5]")
+        item_sum = WebDriverWait(self.driver, 3).until(
+            EC.visibility_of_element_located(item_sum_locator))
+        return round(float(item_sum.text.replace("$", "")), 2)
+
+    def click_refresh_item_button(self, item_name):
+        item_refresh_locator = (By.XPATH, self.items_table_xpath + "//tr[td/div/strong/a[text()='" + item_name + "']]//i[@class='fa fa-refresh']")
+        item_refresh = WebDriverWait(self.driver, 3).until(
+            EC.element_to_be_clickable(item_refresh_locator))
+        item_refresh.click()
+
+    def click_confirm_order_button(self):
+        confirm_order_button = WebDriverWait(self.driver, 3).until(
+            EC.element_to_be_clickable(self.confirm_order_button_locator))
+        confirm_order_button.click()

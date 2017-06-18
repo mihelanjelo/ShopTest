@@ -19,7 +19,10 @@ class Helper:
         self.driver.quit()
 
     def wait_to_be_visible(self, locator, time_sec):
-        return WebDriverWait(self.driver, time_sec).until(EC.visibility_of_element_located(locator))
+        try:
+            return WebDriverWait(self.driver, time_sec).until(EC.visibility_of_element_located(locator))
+        except TimeoutException:
+            return False
 
     def wait_not_visible(self, locator, time_sec):
         return WebDriverWait(self.driver, time_sec).until(EC.invisibility_of_element_located(locator))
@@ -32,6 +35,13 @@ class Helper:
                 raise Exception("Page isn't visible for " + waiting_time + "sec!")
             else:
                 time.sleep(1)
+
+    def is_element_visible(self, locator):
+        element = self.driver.find_element(locator)
+        return element.is_displayed()
+
+    def wait_element_located(self, locator, time_sec):
+        WebDriverWait(self.driver, time_sec).until(EC.presence_of_element_located(locator))
 
     @staticmethod
     def choose_browser(browser):

@@ -1,4 +1,4 @@
-from features.steps.steps_add_to_cart import *
+from features.steps.steps_adding_to_cart import *
 
 
 @given('Before deleting item execute steps of adding item to cart scenario with params: "{browser}", "{item_name}", "{size}", "{quantity}"')
@@ -15,7 +15,10 @@ def step_impl(context, browser, item_name, size, quantity):
       Then Should pop-up window close
       When Open shopping cart
       Then Should cart page open and choose "{item_name}" in list with chosen "{size}" and "{quantity}"
-    """.format(browser=browser, item_name=item_name, size=size, quantity=quantity))
+    """.format(browser=browser,
+               item_name=item_name,
+               size=size,
+               quantity=quantity))
 
 
 @when('Click delete "{item_name}" from list')

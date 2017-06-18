@@ -4,12 +4,14 @@ from behave import *
 from pageobjects.cart_page import CartPage
 from pageobjects.home_page import HomePage
 from pageobjects.popup_window import PopUpWindow
+from pageobjects.success_order_page import SuccessOrderPage
 from utils.helper import Helper
 
 helper = None
 home_page = None
 popup_window = None
 cart_page = None
+success_order_page = None
 
 
 @given('Open "{browser}"')
@@ -18,6 +20,7 @@ def step_impl(context, browser):
     context.home_page = HomePage(context.helper.driver)
     context.popup_window = PopUpWindow(context.helper.driver)
     context.cart_page = CartPage(context.helper.driver)
+    context.success_order_page = SuccessOrderPage(context.helper.driver)
 
 
 @when('Go to "{url}"')

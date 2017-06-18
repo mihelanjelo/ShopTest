@@ -1,4 +1,4 @@
-Feature: Shopping cart basic test
+Feature: Shopping cart basic feature
   
   Scenario Outline: Adding item to cart
       Given Open "<browser>"
