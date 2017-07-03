@@ -1,8 +1,7 @@
 import time
 
 from selenium import webdriver
-from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.common.by import By
+from selenium.common.exceptions import TimeoutException, WebDriverException
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -16,7 +15,7 @@ class Helper:
         self.driver.get(url)
 
     def close(self):
-        self.driver.quit()
+        self.driver.close()
 
     def wait_to_be_visible(self, locator, time_sec):
         try:
@@ -31,8 +30,8 @@ class Helper:
         for i in range(0, waiting_time + 1):
             if self.driver.title == page.page_title:
                 break
-            elif i == 5:
-                raise Exception("Page isn't visible for " + waiting_time + "sec!")
+            elif i == waiting_time:
+                raise WebDriverException("Page isn't visible for " + str(waiting_time) + "sec!")
             else:
                 time.sleep(1)
 

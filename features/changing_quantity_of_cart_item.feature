@@ -11,3 +11,5 @@ Feature: Changing quantity of item in cart
     Examples:
       | browser | item_name    | size  | quantity | new_quantity |
       | Chrome  | Yellow Duck  | Small | 2        | 3            |
+
+

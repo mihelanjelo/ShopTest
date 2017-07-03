@@ -31,7 +31,7 @@ def step_impl(context, url):
 @step('Click on "{item_name}"')
 def step_impl(context, item_name):
     context.helper.wait_page(context.home_page, 3)
-    context.home_page.choose_item(item_name)
+    context.home_page.choose_item(item_name, 3)
 
 
 @then('Should open pop-up window with item definition')
@@ -41,22 +41,22 @@ def step_impl(context):
 
 @when('Set size "{size}"')
 def step_impl(context, size):
-    context.popup_window.select_size_by_value(size)
+    context.popup_window.select_size_by_value(size, 3)
 
 
 @step('Set quantity "{quantity}"')
 def step_impl(context, quantity):
-    context.popup_window.input_quantity(quantity)
+    context.popup_window.input_quantity(quantity, 3)
 
 
 @step('Click add to cart button')
 def step_impl(context):
-    context.popup_window.add_to_cart()
+    context.popup_window.add_to_cart(3)
 
 
 @step('Close pop-up window')
 def step_impl(context):
-    context.popup_window.close()
+    context.popup_window.close(3)
 
 
 @then('Should pop-up window close')
@@ -66,10 +66,10 @@ def step_impl(context):
 
 @when('Open shopping cart')
 def step_impl(context):
-    context.home_page.go_to_cart()
+    context.home_page.go_to_cart(3)
 
 
 @then('Should cart page open and choose "{item_name}" in list with chosen "{size}" and "{quantity}"')
 def step_impl(context, item_name, size, quantity):
     context.helper.wait_page(context.cart_page, 5)
-    assert context.cart_page.check_item_in_cart(item_name, size, quantity)
+    assert context.cart_page.check_item_in_cart(item_name, size, quantity, 3)

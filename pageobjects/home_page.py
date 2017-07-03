@@ -12,11 +12,11 @@ class HomePage:
 
     go_to_cart_locator = (By.XPATH, "//div[@class='title' and contains(text(), 'Shopping Cart')]")
 
-    def choose_item(self, item_name):
+    def choose_item(self, item_name, time_waiting_element=0):
         item_locator = (By.XPATH, "//a[@title='" + item_name + "']")
-        item = WebDriverWait(self.driver, 3).until(EC.element_to_be_clickable(item_locator))
+        item = WebDriverWait(self.driver, time_waiting_element).until(EC.element_to_be_clickable(item_locator))
         item.click()
 
-    def go_to_cart(self):
-        cart = WebDriverWait(self.driver, 3).until(EC.element_to_be_clickable(self.go_to_cart_locator))
+    def go_to_cart(self, time_waiting_element=0):
+        cart = WebDriverWait(self.driver, time_waiting_element).until(EC.element_to_be_clickable(self.go_to_cart_locator))
         cart.click()

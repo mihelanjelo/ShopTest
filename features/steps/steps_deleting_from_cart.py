@@ -23,9 +23,9 @@ def step_impl(context, browser, item_name, size, quantity):
 
 @when('Click delete "{item_name}" from list')
 def step_impl(context, item_name):
-    context.cart_page.delete_item(item_name)
+    context.cart_page.delete_item(item_name, 3)
 
 
 @then('Should item with params: "{item_name}", "{size}", "{quantity}" disappear')
 def step_impl(context, item_name, size, quantity):
-    assert context.cart_page.check_item_not_in_cart(item_name, size, quantity)
+    assert context.cart_page.check_item_not_in_cart(item_name, size, quantity, 3)

@@ -51,10 +51,10 @@ def step_impl(context, tax_id, company, first_name, last_name, address1, address
 
 @when('Click confirm order button')
 def step_impl(context):
-    context.cart_page.click_confirm_order_button()
+    context.cart_page.click_confirm_order_button(3)
 
 
 @then('Should appear page with message "{message}"')
 def step_impl(context, message):
     context.helper.wait_page(context.success_order_page, 10)
-    assert context.success_order_page.get_success_message() == message
+    assert context.success_order_page.get_success_message(3) == message

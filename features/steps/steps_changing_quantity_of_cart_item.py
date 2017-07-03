@@ -25,23 +25,24 @@ def step_impl(context, browser, item_name, size, quantity):
 
 @when('Select for item "{item_name}" new quantity "{new_quantity}"')
 def step_impl(context, item_name, new_quantity):
-    context.cart_page.change_item_quantity(item_name, new_quantity)
+    context.cart_page.change_item_quantity(item_name, new_quantity, 3)
 
 
 @step('Remember sum of "{item_name}"')
 def step_impl(context, item_name):
-    context.item_sum = context.cart_page.get_item_sum(item_name)
+    context.item_sum = context.cart_page.get_item_sum(item_name, 3)
 
 
 @step('Click refresh item "{item_name}" button')
 def step_impl(context, item_name):
-    context.cart_page.click_refresh_item_button(item_name)
+    context.cart_page.click_refresh_item_button(item_name, 3)
 
 
 @then('Should quantity "{quantity}" of "{item_name}" change to "{new_quantity}" and sum must be proportional increase or decrease, page load time max "{load_time}" sec')
 def step_impl(context, item_name, quantity, new_quantity, load_time):
     for i in range(0, (int(load_time) * 2) + 1):
-        if context.cart_page.get_item_sum(item_name) == context.item_sum / int(quantity) * int(new_quantity):
+        if context.cart_page.get_item_sum(item_name, 3) == context.item_sum / int(quantity) * int(new_quantity):
             break
         time.sleep(0.5)
-    assert context.cart_page.get_item_sum(item_name) == context.item_sum / int(quantity) * int(new_quantity)
+    assert context.cart_page.get_item_sum(item_name, 3) == context.item_sum / int(quantity) * int(new_quantity)
+

@@ -1,5 +1,5 @@
 Feature: Shopping cart basic feature
-  
+
   Scenario Outline: Adding item to cart
       Given Open "<browser>"
       When Go to "https://demo.litecart.net/en/"
