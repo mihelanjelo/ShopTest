@@ -1,3 +1,4 @@
+"""Модуль с шагами для теста Changing quantity of item in cart"""
 import time
 from features.steps.steps_adding_to_cart import *
 

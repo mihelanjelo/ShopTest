@@ -2,8 +2,8 @@ import time
 from selenium import webdriver
 
 
+# Класс для вспомогательных методов и инициализации драйвера
 class Helper:
-
     def __init__(self, browser_name, executable_path):
         self.driver = Helper.choose_browser(browser_name, executable_path=executable_path)
         self.driver.set_window_size(1920, 1080)

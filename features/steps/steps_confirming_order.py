@@ -1,3 +1,4 @@
+"""Модуль с шагами для теста Confirming order"""
 from features.steps.steps_adding_to_cart import *
 
 

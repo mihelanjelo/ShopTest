@@ -1,3 +1,5 @@
+"""Модуль с шагами для теста Adding item to cart"""
+
 from behave import *
 
 from pageobjects.cart_page import CartPage

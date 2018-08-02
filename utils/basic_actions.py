@@ -9,6 +9,7 @@ from selenium.webdriver.support import expected_conditions as EC
 last_wanted_element_info = None
 
 
+# Класс с базовыми методами для работы с элементами
 class BasicActions:
     def __init__(self, driver):
         self.driver = driver

@@ -2,6 +2,7 @@ from selenium.webdriver.common.by import By
 from .base_page import BasePage
 
 
+# Класс с элементами домашней страницы
 class HomePage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)

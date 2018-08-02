@@ -5,6 +5,7 @@ from selenium.webdriver.remote.webelement import WebElement
 from utils.basic_actions import BasicActions
 
 
+# Базовый класс для объектов страниц с часто используемыми методами
 class BasePage:
     def __init__(self, driver):
         self.driver = driver
@@ -45,7 +46,7 @@ class BasePage:
             if not values:
                 el = self.basic_actions.wait_element(self.LOCATORS[locator_name], time_waiting_element)
                 action = webdriver.common.action_chains.ActionChains(self.driver)
-                action.move_to_element_with_offset(el,offset['x'], offset['y'])
+                action.move_to_element_with_offset(el, offset['x'], offset['y'])
                 action.click()
                 action.perform()
             else:
