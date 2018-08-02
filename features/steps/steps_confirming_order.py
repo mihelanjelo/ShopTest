@@ -1,12 +1,11 @@
 from features.steps.steps_adding_to_cart import *
 
 
-@given('Before confirming order execute steps of adding item to cart scenario with params: "{browser}", "{item_name}", "{size}", "{quantity}"')
-def step_impl(context, browser, item_name, size, quantity):
+@given('Before confirming order execute steps of adding item to cart scenario with params: '
+       '"{item_name}", "{size}", "{quantity}"')
+def step_impl(context, item_name, size, quantity):
     context.execute_steps("""
-      Given Open "{browser}"
-      When Go to "https://demo.litecart.net/en/"
-        And Click on "{item_name}"
+      When Click on "{item_name}"
       Then Should open pop-up window with item definition
       When Set size "{size}"
         And Set quantity "{quantity}"
@@ -15,13 +14,14 @@ def step_impl(context, browser, item_name, size, quantity):
       Then Should pop-up window close
       When Open shopping cart
       Then Should cart page open and choose "{item_name}" in list with chosen "{size}" and "{quantity}"
-    """.format(browser=browser,
-               item_name=item_name,
+    """.format(item_name=item_name,
                size=size,
                quantity=quantity))
 
 
-@given('Before confirming order execute steps for setting customer information with params: "{tax_id}", "{company}", "{first_name}", "{last_name}", "{address1}", "{address2}", "{postcode}", "{city}", "{country}", "{email}", "{phone}"')
+@given('Before confirming order execute steps for setting customer information with params: "{tax_id}", "{company}", '
+       '"{first_name}", "{last_name}", "{address1}", "{address2}", "{postcode}", "{city}", "{country}", "{email}", '
+       '"{phone}"')
 def step_impl(context, tax_id, company, first_name, last_name, address1, address2, postcode, city, country, email, phone):
     context.execute_steps("""
       When Set tax id "{tax_id}"
@@ -51,10 +51,10 @@ def step_impl(context, tax_id, company, first_name, last_name, address1, address
 
 @when('Click confirm order button')
 def step_impl(context):
-    context.cart_page.click_confirm_order_button(3)
+    context.cart_page.click_at('confirm order button', 6)
 
 
 @then('Should appear page with message "{message}"')
 def step_impl(context, message):
-    context.helper.wait_page(context.success_order_page, 10)
-    assert context.success_order_page.get_success_message(3) == message
+    assert context.helper.is_page_opened(context.success_order_page, 10)
+    assert context.success_order_page.get_text_from('success message', 3) == message

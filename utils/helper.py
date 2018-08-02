@@ -1,52 +1,39 @@
 import time
-
 from selenium import webdriver
-from selenium.common.exceptions import TimeoutException, WebDriverException
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 
-# Класс для вспомогательных методов и хранения драйвера
 class Helper:
-    def __init__(self, browser_name):
-        self.driver = Helper.choose_browser(browser_name)
+
+    def __init__(self, browser_name, executable_path):
+        self.driver = Helper.choose_browser(browser_name, executable_path=executable_path)
+        self.driver.set_window_size(1920, 1080)
+        self.driver.implicitly_wait(4)
 
     def visit(self, url):
         self.driver.get(url)
 
-    def close(self):
-        self.driver.close()
+    def quit(self):
+        self.driver.quit()
 
-    def wait_to_be_visible(self, locator, time_sec):
-        try:
-            return WebDriverWait(self.driver, time_sec).until(EC.visibility_of_element_located(locator))
-        except TimeoutException:
-            return False
-
-    def wait_not_visible(self, locator, time_sec):
-        return WebDriverWait(self.driver, time_sec).until(EC.invisibility_of_element_located(locator))
-
-    def wait_page(self, page, waiting_time):
+    def is_page_opened(self, page, waiting_time=0):
         for i in range(0, waiting_time + 1):
-            if self.driver.title == page.page_title:
-                break
+            if self.driver.title == page.PAGE_TITLE:
+                return True
             elif i == waiting_time:
-                raise WebDriverException("Page isn't visible for " + str(waiting_time) + "sec!")
+                return False
             else:
                 time.sleep(1)
 
-    def is_element_visible(self, locator):
-        element = self.driver.find_element(locator)
-        return element.is_displayed()
-
-    def wait_element_located(self, locator, time_sec):
-        WebDriverWait(self.driver, time_sec).until(EC.presence_of_element_located(locator))
+    def refresh(self):
+        self.driver.refresh()
 
     @staticmethod
-    def choose_browser(browser):
+    def choose_browser(browser, executable_path):
         if browser == "Chrome":
-            return webdriver.Chrome()
+            if not executable_path: return webdriver.Chrome()
+            return webdriver.Chrome(executable_path=executable_path)
         elif browser == "Firefox":
-            return webdriver.Firefox()
-        elif browser == "IE":
-            return webdriver.Ie()
+            if not executable_path: return webdriver.Firefox()
+            return webdriver.Firefox(executable_path=executable_path)
+        else:
+            raise ValueError("Неверное имя браузера!")

@@ -1,4 +1,3 @@
-import time
 from behave import *
 
 from pageobjects.cart_page import CartPage
@@ -7,16 +6,10 @@ from pageobjects.popup_window import PopUpWindow
 from pageobjects.success_order_page import SuccessOrderPage
 from utils.helper import Helper
 
-helper = None
-home_page = None
-popup_window = None
-cart_page = None
-success_order_page = None
 
-
-@given('Open "{browser}"')
-def step_impl(context, browser):
-    context.helper = Helper(browser)
+@given('Open browser')
+def step_impl(context):
+    context.helper = Helper(context.browser, context.browser_exe_path)
     context.home_page = HomePage(context.helper.driver)
     context.popup_window = PopUpWindow(context.helper.driver)
     context.cart_page = CartPage(context.helper.driver)
@@ -30,46 +23,47 @@ def step_impl(context, url):
 
 @step('Click on "{item_name}"')
 def step_impl(context, item_name):
-    context.helper.wait_page(context.home_page, 3)
-    context.home_page.choose_item(item_name, 3)
+    assert context.helper.is_page_opened(context.home_page, 5)
+    context.home_page.click_at('item link', 3, values={'item_name': item_name})
 
 
 @then('Should open pop-up window with item definition')
 def step_impl(context):
-    context.helper.wait_to_be_visible(context.popup_window.popup_window_locator, 3)
+    assert context.popup_window.is_visible('popup window', 3)
 
 
 @when('Set size "{size}"')
 def step_impl(context, size):
-    context.popup_window.select_size_by_value(size, 3)
+    context.popup_window.select_item('select size', size, 3)
 
 
 @step('Set quantity "{quantity}"')
 def step_impl(context, quantity):
-    context.popup_window.input_quantity(quantity, 3)
+    context.popup_window.send_text_to('quantity field', quantity, 3)
 
 
 @step('Click add to cart button')
 def step_impl(context):
-    context.popup_window.add_to_cart(3)
+    context.popup_window.click_at('add to cart button', 3)
 
 
 @step('Close pop-up window')
 def step_impl(context):
-    context.popup_window.close(3)
+    context.popup_window.click_at('close popup button', 3)
 
 
 @then('Should pop-up window close')
 def step_impl(context):
-    context.helper.wait_not_visible(context.popup_window.popup_window_locator, 3)
+    assert context.popup_window.is_not_visible('popup window', 3)
 
 
 @when('Open shopping cart')
 def step_impl(context):
-    context.home_page.go_to_cart(3)
+    context.home_page.click_at("go to cart link")
 
 
 @then('Should cart page open and choose "{item_name}" in list with chosen "{size}" and "{quantity}"')
 def step_impl(context, item_name, size, quantity):
-    context.helper.wait_page(context.cart_page, 5)
-    assert context.cart_page.check_item_in_cart(item_name, size, quantity, 3)
+    assert context.helper.is_page_opened(context.cart_page, 5)
+    assert context.cart_page.is_visible("item in cart", 4,
+                                        values={'item_name': item_name, 'size': size, 'quantity': quantity})
